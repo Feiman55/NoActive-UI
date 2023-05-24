@@ -13,7 +13,8 @@ import de.robv.android.xposed.XC_MethodHook;
 public class BinderTransHook extends MethodHook {
 
     private final static String REASON = "received sync binder";
-
+    //定义的ASON是对应异步解冻测试的，可以删除
+    private final static String ASON = "received oneway binder";
     /**
      * 应用切换Hook
      */
@@ -50,9 +51,9 @@ public class BinderTransHook extends MethodHook {
                 boolean isOneway = (boolean) args[5];
                 if (isOneway) {
                     // 异步不处理，下边两行是异步解冻可以删除，目前是测试用的
-                    Log.i("这是异步binder解冻处理");
-                    freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
-                    //return;
+                   // Log.i("这是异步binder解冻处理");
+                    freezerHandler.temporaryUnfreezeIfNeed(uid, ASON);
+                    return;
                 }
                 freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
             }
