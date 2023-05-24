@@ -50,9 +50,9 @@ public class BinderTransHook extends MethodHook {
                 boolean isOneway = (boolean) args[5];
                 if (isOneway) {
                     // 异步不处理，下边两行是异步解冻可以删除，目前是测试用的
-                    Log.i("这是异步 binder，解冻处理");
+                    Log.i("这是异步binder解冻处理");
                     freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
-                    return;
+                    //return;
                 }
                 freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
             }
