@@ -57,7 +57,7 @@ public class BinderTransHook extends MethodHook {
 
                 //获取上次解冻时间戳，如果没有解冻就是0
 
-                long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
+                Long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
 
                 //如果当前时间-上次解冻时间，小于60秒就return返回
 
