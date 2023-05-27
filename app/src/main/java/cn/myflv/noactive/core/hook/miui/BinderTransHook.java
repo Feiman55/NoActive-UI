@@ -11,6 +11,8 @@ import de.robv.android.xposed.XC_MethodHook;
  * Binder通信Hook.
  */
 public class BinderTransHook extends MethodHook {
+    
+    private final static Map<Integer, Long> lastThawMap = new ConcurrentHashMap<>();
 
     private final static String REASON = "received sync binder";
     //定义的ASON是对应异步解冻测试的，可以删除
@@ -50,6 +52,24 @@ public class BinderTransHook extends MethodHook {
                 // 是否异步
                 boolean isOneway = (boolean) args[5];
                 if (isOneway) {
+                    
+                Long currentTime = System.currentTimeMillis();
+
+                //获取上次解冻时间戳，如果没有解冻就是0
+
+                Long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
+
+                //如果当前时间-上次解冻时间，小于60秒就return返回
+
+                if (currentTime - lastThawTime < 60 * 1000 ){
+
+                return;
+
+                }
+
+                //存入当前时间
+
+                lastThawMap.put(uid, currentTime);
                     // 异步不处理，下边两行是异步解冻可以删除，目前是测试用的
                    // Log.i("这是异步binder解冻处理");
                     freezerHandler.temporaryUnfreezeIfNeed(uid, ASON);
