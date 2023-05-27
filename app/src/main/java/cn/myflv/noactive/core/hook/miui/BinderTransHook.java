@@ -36,7 +36,7 @@ public class BinderTransHook extends MethodHook {
 
     private final static String ASYNC_REASON = "received async binder";
 
-    private final static int ASYNC_INTERVAL = 60 * 1000;
+    private final static int ASYNC_INTERVAL = 30 * 1000;
 
     /**
 
