@@ -53,11 +53,11 @@ public class BinderTransHook extends MethodHook {
                 boolean isOneway = (boolean) args[5];
                 if (isOneway) {
                     
-                Long currentTime = System.currentTimeMillis();
+                long currentTime = System.currentTimeMillis();
 
                 //获取上次解冻时间戳，如果没有解冻就是0
 
-                Long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
+                long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
 
                 //如果当前时间-上次解冻时间，小于60秒就return返回
 
