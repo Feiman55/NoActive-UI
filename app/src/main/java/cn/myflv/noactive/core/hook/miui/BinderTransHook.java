@@ -99,6 +99,7 @@ public class BinderTransHook extends MethodHook {
                 // 是否异步
 
                 boolean isOneway = (boolean) args[5];
+                Log.i(isOneway)
 
                 if (isOneway) {
 
