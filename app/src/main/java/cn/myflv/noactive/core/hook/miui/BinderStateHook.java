@@ -47,7 +47,7 @@ public class BinderStateHook extends MethodHook {
             protected void beforeMethod(MethodHookParam param) throws Throwable {
                 Object[] args = param.args;
                 int state = (int) args[3];
-                Log.i(state);
+                Log.i(state.toString());
                 if (state != BINDER_BUSY) {
                     return;
                 }
