@@ -104,7 +104,7 @@ public class BinderTransHook extends MethodHook {
                 if (isOneway) {
                     //异步直接不解冻，删除这里就是异步相同uid软件3分钟解冻1次
                     return;
-
+/**
                     //获取上次解冻时间戳，如果没有解冻就是0
 
                     Long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
@@ -116,15 +116,16 @@ public class BinderTransHook extends MethodHook {
                         return;
 
                     }
-
+*/
                 }
-
+/**
                 //存入当前时间
 
                 lastThawMap.put(uid, currentTime);
 
                 freezerHandler.temporaryUnfreezeIfNeed(uid, isOneway ? ASYNC_REASON : SYNC_REASON);
-
+*/
+                freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
             }
 
         };
