@@ -1,8 +1,5 @@
+
 package cn.myflv.noactive.core.hook.miui;
-
-import java.util.Map;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import cn.myflv.noactive.constant.ClassConstants;
 
@@ -24,20 +21,7 @@ import de.robv.android.xposed.XC_MethodHook;
 
 public class BinderTransHook extends MethodHook {
 
-    /**
-
-     * 上一次解冻时间Map.
-
-     */
-
-    private final static Map<Integer, Long> lastThawMap = new ConcurrentHashMap<>();
-
-    private final static String SYNC_REASON = "received sync binder";
-
-    private final static String ASYNC_REASON = "received async binder";
-    //3分钟解冻一次
-
-    private final static int ASYNC_INTERVAL = 180 * 1000;
+    private final static String REASON = "received sync binder";
 
     /**
 
@@ -93,39 +77,20 @@ public class BinderTransHook extends MethodHook {
 
                 int uid = (int) args[0];
 
-                //获取当前时间戳
-
-                long currentTime = System.currentTimeMillis();
-
                 // 是否异步
 
                 boolean isOneway = (boolean) args[5];
 
                 if (isOneway) {
-                    //异步直接不解冻，删除这里就是异步相同uid软件3分钟解冻1次
+
+                    // 异步不处理
+
                     return;
-/**
-                    //获取上次解冻时间戳，如果没有解冻就是0
 
-                    Long lastThawTime = lastThawMap.computeIfAbsent(uid, k -> 0L);
-
-                    //如果当前时间-上次解冻时间，小于60秒就return返回
-
-                    if (currentTime - lastThawTime < ASYNC_INTERVAL) {
-
-                        return;
-
-                    }
-*/
                 }
-/**
-                //存入当前时间
 
-                lastThawMap.put(uid, currentTime);
-
-                freezerHandler.temporaryUnfreezeIfNeed(uid, isOneway ? ASYNC_REASON : SYNC_REASON);
-*/
                 freezerHandler.temporaryUnfreezeIfNeed(uid, REASON);
+
             }
 
         };
@@ -157,4 +122,3 @@ public class BinderTransHook extends MethodHook {
     }
 
 }
-
