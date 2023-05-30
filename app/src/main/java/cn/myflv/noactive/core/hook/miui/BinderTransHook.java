@@ -102,6 +102,8 @@ public class BinderTransHook extends MethodHook {
                 boolean isOneway = (boolean) args[5];
 
                 if (isOneway) {
+                    //异步直接不解冻，删除这里就是异步相同uid软件3分钟解冻1次
+                    return;
 
                     //获取上次解冻时间戳，如果没有解冻就是0
 
