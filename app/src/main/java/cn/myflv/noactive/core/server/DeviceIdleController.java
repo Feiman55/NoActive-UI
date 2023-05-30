@@ -43,7 +43,7 @@ public class DeviceIdleController {
             curState = getCurState();
         }
         idle = true;
-        Log.d("deep doze success");
+        Log.i("deep doze success");
     }
 
 
